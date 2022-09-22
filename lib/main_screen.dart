@@ -16,7 +16,7 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
   }
 
-  double posX = 30, posY = 30;
+  double posX = 180, posY = 350;
 
   @override
   Widget build(BuildContext context) {
@@ -28,36 +28,32 @@ class _MainScreenState extends State<MainScreen> {
         elevation: 0,
         title: Text(widget.title),
       ),
-      body: Stack(
-        children: [
-          StreamBuilder<AccelerometerEvent>(
-              stream: SensorsPlatform.instance.accelerometerEvents,
-              builder: (context, snapshot) {
-                // print("");
-                if (snapshot.hasData) {
-                  posX = posX + (snapshot.data!.x * 10);
-                  if (posX > width) {
-                    posX = width;
-                  } else if (posX < 0) {
-                    posX = 0;
-                  }
-                  posY = posY + (snapshot.data!.y * 10);
-                  if (posY > height) {
-                    posY = height;
-                  } else if (posY < 0) {
-                    posY = 0;
-                  }
-                }
-                return Transform.translate(
-                  offset: Offset(posX, posY),
-                  child: const CircleAvatar(
-                    radius: 20,
-                    backgroundColor: Colors.red,
-                  ),
-                );
-              }),
-        ],
-      ),
+      body: StreamBuilder<GyroscopeEvent>(
+          stream: SensorsPlatform.instance.gyroscopeEvents,
+          builder: (context, snapshot) {
+            // print("");
+            if (snapshot.hasData) {
+              posX = posX + (snapshot.data!.x * 10);
+              if (posX > width) {
+                posX = width;
+              } else if (posX < 0) {
+                posX = 0;
+              }
+              posY = posY + (snapshot.data!.y * 10);
+              if (posY > height) {
+                posY = height;
+              } else if (posY < 0) {
+                posY = 0;
+              }
+            }
+            return Transform.translate(
+              offset: Offset(posX, posY),
+              child: const CircleAvatar(
+                radius: 20,
+                backgroundColor: Colors.red,
+              ),
+            );
+          }),
     );
   }
 }
