@@ -30,7 +30,10 @@ class _SensorAppState extends State<SensorApp> {
             left: centerX,
             top: centerY,
             child: Container(
-              color: Colors.red,
+              decoration: const BoxDecoration(
+                color: Colors.green, //color는 여기에 설정해줘야 에러가 안난다.
+                shape: BoxShape.circle,
+              ),
               width: 100,
               height: 100,
             ),
