@@ -26,9 +26,6 @@ class _SensorAppState extends State<SensorApp> {
     final centerX = MediaQuery.of(context).size.width / 2 - 50;
     final centerY = MediaQuery.of(context).size.height / 2 - 50;
 
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
-
     return Scaffold(
       body: Stack(
         children: [
@@ -41,11 +38,10 @@ class _SensorAppState extends State<SensorApp> {
                   );
                 }
                 final event = snapshot.data!;
-                List<double> accelerometerValues = [event.x, event.y, event.z];
 
                 return Positioned(
-                  left: centerX,
-                  top: centerY,
+                  left: centerX + event.y * 20,
+                  top: centerY + event.x * 20,
                   child: Container(
                     decoration: const BoxDecoration(
                       color: Colors.green, //color는 여기에 설정해줘야 에러가 안난다.
